@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+<!-- DataSource Cfg  -->
+
+
+<bean id="hkDs" class="com.zaxxer.hikari.HikariDataSource">
+
+   <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+   <property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe" />
+   <property name="username" value="system"/>
+   <property name="password" value="manager" />
+   <property name="maximumPoolSize" value="30"/>
+   <property name="idleTimeout" value="1000"/>
+   <property name="minimumIdle" value="5"/>
+</bean>
+ 
+    <!-- DAO Class Cfg -->
+    
+    <bean id="empDAO" class="com.bs.dao.EmployeeDAOImpl">
+    <constructor-arg ref="hkDs" />
+    
+    </bean>
+
+   <!-- Service Class Cfg  -->
+   
+   <bean id="empService" class="com.bs.service.EmployeeManagmentServiceImpl">
+    <constructor-arg ref="empDAO"/>
+   
+   </bean>
+
+</beans>
